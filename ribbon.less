@@ -61,11 +61,13 @@
   
   .text {
     padding: 0.25em 3em;
+    font-size: 100%;
   
     .user-select(none);
   }
   
   &:hover {
+	color: #fff;
     .opacity(0.95);
   }
   
@@ -104,6 +106,7 @@
     .box-shadow(0px, 0px, @shadowRadius, lighten(@shadow, 5%));
     text-shadow: 0 0 .5em darken(@shadow, 50%);
     
+    &:hover { color: #111; }
     .text { .ribbon-border(darken(@white, 20%)); }
   }
   
