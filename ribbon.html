@@ -3,177 +3,166 @@
   <head>
     <title>CSS Ribbon</title>
     <link rel="stylesheet" type="text/css" href="boilerplate.css">
-    <link rel="stylesheet" type="text/css" href="ribbon.css">
-    <style type="text/css">
-    body {
-      font-size: 100%;
-      color: #444;
-      font-family: Helvetica, Arial, sans-serif;
-    }
-    h1 { font-size: 2.5em; }
-    h4 { font-size: 1.1em; }
-    .prose {
-      margin-left: 3em;
-      width: 35em;
-      font-size: 95%;
-      color: #333;
-    }
-    .prose, .tiled {
-      float: left;
-    }
-    .tiled .ribbon-holder {
-      position: relative;
-    }
-    .tiled li {
-      border: 1px solid #ddd;
-      width: 13em;
-      list-style-type: none;
-    }
-    .tiled .right .ribbon {
-      /* Pull a little extra to get it working inline. */
-      right: -3.5em;
-    }
-    .tiled li.dark {
-      background-color: #111;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="ribbon.min.css">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="jquery-1.5.2.min.js"%3E%3C/script%3E'))</script>
   </head>
   <body>
-    <h1>Reproducing the GitHub Ribbon in CSS</h1>
-    <h4>From the bureau of "I know it doesn't work everywhere but I don't care."</h4>
-      <div class="right ribbon-holder">
-        <a href="http://github.com/jbalogh" class="orange ribbon">
-          <span class="text">Fork me on GitHub</span>
-        </a>
-      </div>
-    <ul class="tiled">
-      <li>
-        <div class="left ribbon-holder">
-          <a href="#" class="red ribbon">
-            <span class="text">Fork me on GitHub</span>
-          </a>
-        </div>
-      </li>
-      <li>
-        <div class="left ribbon-holder">
-          <a href="#" class="green ribbon">
-            <span class="text">Fork me on GitHub</span>
-          </a>
-        </div>
-      </li>
-      <li>
-        <div class="right ribbon-holder">
-          <a href="#" class="darkblue ribbon">
-            <span class="text">Fork me on GitHub</span>
-          </a>
-        </div>
-      </li>
-      <li class="dark">
-        <div class="right ribbon-holder">
-          <a href="#" class="white ribbon">
-            <span class="text">Fork me on GitHub</span>
-          </a>
-        </div>
-      </li>
-      <li>
-        <div class="left ribbon-holder">
-          <a href="#" class="gray ribbon">
-            <span class="text">Fork me on GitHub</span>
-          </a>
-        </div>
-      </li>
-    </ul>
+	<a id="myribbon" href="http://github.com/Stoney-FD" class="green ribbon left top">
+		<span class="text">Fork me on GitHub</span>
+    </a>
+	  
+	  
+    <h1>Reproducing the GitHub Ribbon in CSS and <a href="http://lesscss.org">LESS</a></h1>
+    <h4>From the bureau of "It works if you use a modern browser"</h4>
+      
+    <div class="options">
+	  <span class="title">Position</span><br />
+	  <form>
+		  <input type="radio" id="rbLeft" name="Position_X" checked /><label id="lblLeft" for="rbLeft">Left</label>
+		  <input type="radio" id="rbRight" name="Position_X" /><label id="lblRight" for="rbRight">Right</label><br />
+		  <input type="radio" id="rbTop" name="Position_Y" checked /><label id="lblTop" for="rbTop">Top</label>
+		  <input type="radio" id="rbBottom" name="Position_Y" /><label id="lblBottom" for="rbBottom">Bottom</label><br />
+	  </form>
+	  <input type="checkbox" id="chbSticky" name="chbSticky" /><label for="chbSticky">Sticky</label>
+	  <br />
+	  <br /><span class="title">Background color</span><br />
+	  <div onclick="javascript:changeBackground('day');" class="cbutton white"></div>
+	  <div onclick="javascript:changeBackground('night');" class="cbutton black"></div>
+	  <br /><span class="title">Ribbon color</span><br />
+	  <div onclick="javascript:changeColor('white');" class="cbutton white"></div>
+	  <div onclick="javascript:changeColor('red');" class="cbutton red"></div>
+	  <div onclick="javascript:changeColor('green');" class="cbutton green"></div>
+	  <div onclick="javascript:changeColor('darkblue');" class="cbutton darkblue"></div>
+	  <div onclick="javascript:changeColor('orange');" class="cbutton orange"></div>
+	  <div onclick="javascript:changeColor('gray');" class="cbutton gray"></div>
+    
+      <script>
+		$(document).ready(function() { $('body').addClass('day'); });  
+		$('#rbLeft,#lblLeft').click(function() 
+		{
+			if ($('#myribbon').hasClass('right'))
+			{
+				$('#myribbon').removeClass('right');
+				$('#myribbon').addClass('left');
+			}
+		});
+		
+		$('#rbRight,#lblRight').click(function() 
+		{
+			if ($('#myribbon').hasClass('left'))
+			{
+				$('#myribbon').removeClass('left');
+				$('#myribbon').addClass('right');
+			}
+		});
+		
+		$('#rbTop,#lblTop').click(function() 
+		{
+			if ($('#myribbon').hasClass('bottom'))
+			{
+				$('#myribbon').removeClass('bottom');
+				$('#myribbon').addClass('top');
+			}
+		});
+		
+		$('#rbBottom,#lblBottom').click(function() 
+		{
+			if ($('#myribbon').hasClass('top'))
+			{
+				$('#myribbon').removeClass('top');
+				$('#myribbon').addClass('bottom');
+			}
+		});
+		
+		$('#chbSticky').click(function()
+		{
+			$('#myribbon').toggleClass('fixed');
+		});
+		  
+		function changeBackground(value)
+		{
+			if (!$('body').hasClass(value))
+			{
+				if ($('body').hasClass('day')) $('body').removeClass('day');
+				if ($('body').hasClass('night')) $('body').removeClass('night');
+				
+				$('body').addClass(value);
+			}
+		}  
+		 
+        function changeColor(value)
+        {
+			if (!$('#myribbon').hasClass(value))
+			{
+				if ($('#myribbon').hasClass('white')) $('#myribbon').removeClass('white');
+				if ($('#myribbon').hasClass('red')) $('#myribbon').removeClass('red');
+				if ($('#myribbon').hasClass('green')) $('#myribbon').removeClass('green');
+				if ($('#myribbon').hasClass('darkblue')) $('#myribbon').removeClass('darkblue');
+				if ($('#myribbon').hasClass('orange')) $('#myribbon').removeClass('orange');
+				if ($('#myribbon').hasClass('gray')) $('#myribbon').removeClass('gray');
+				
+				$('#myribbon').addClass(value);
+			}
+		}
+      </script>
+    </div>  
+      
     <div class="prose">
       <p>
-        I've been seeing these "Fork me on GitHub"
-        <a href="http://github.com/blog/273-github-ribbons">ribbons</a>
-        popping up seemingly everywhere, which made me wonder how hard it would
-        be to recreate the ribbons without images, using only CSS.  Making the
-        ribbons turned out to be a fun introduction to some new CSS toys in
-        upcoming browsers.
+        Recently I wanted to add a "Fork me on GitHub" <a href="http://github.com/blog/273-github-ribbons">ribbon</a> to one of my websites.
+        Allright, it's a no-brainer: I'm just gonna use one of those nice <a href="http://github.com/blog/273-github-ribbons">images</a>.
+        Well that was my first though. So I plunked down the image, but hindered the top navigation on the right
+        and the logo on the left side. Placed on the bottom of the page it hindered clicking the <a href="http://en.wikipedia.org/wiki/Impressum">Impressum</a> link on some screen resolutions.<br />
+        Next logical step: Look for an alternative which I found <a href="http://unindented.org/articles/2009/10/github-ribbon-using-css-transforms/">here</a> 
+        and <a href="http://people.mozilla.com/~jbalogh/ribbon/ribbon.html">there</a>. I'm generally a big fan
+        of CSS3, so I was much more impressed by those than just by the ribbon image.<br />
+        I forked the latter and this page is the result. Instead of using plain CSS I went for <a href="http://lesscss.org">LESS</a> which I had
+        used in a few other projects so far and I'm very pleased with it. :)
       </p>
-      <p>The code to make a ribbon:</p>
+      <p>Enough babbling, here is the code to make a ribbon:</p>
       <pre><code>
-      &lt;link rel="stylesheet" type="text/css" href="ribbon.css"&gt;
+      &lt;link rel="stylesheet" type="text/css" href="ribbon.min.css"&gt;
       [...]
-      &lt;div class="left ribbon-holder"&gt;
-        &lt;a href="#" class="red ribbon"&gt;
-          &lt;span class="text"&gt;Fork me on GitHub&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/div&gt;
+      &lt;a href="#" class="red ribbon left top"&gt;
+        &lt;span class="text"&gt;Fork me on GitHub&lt;/span&gt;
+      &lt;/a&gt;
       </code></pre>
       <p>
-        The first trick I went for was
-        <a href="https://developer.mozilla.org/En/CSS/-moz-transform"><code>-moz-transform</code></a>
-        (<code>-webkit-transform</code>).  A simple
-        <code>-moz-transform: rotate(45deg)</code> and I have a ribbon ready for
-        the right corner.
+        You could also use <code>ribbon.css</code> if you prefer the human-readable non-minified version.
+        If you want to modify the source files you need <code>ribbon.less</code> and <code>base.less</code>.
+        <code>base.less</code> has some CSS3 browser-independant mixins. The original CSS ribbons only had
+        support for Webkit and Mozilla browsers.<br />
+        The most important difference is that there is no parent <code>div</code> element around the
+        ribbon, so you can click on elements behind the ribbon.
+        The downside to this is that you need to add <code>overflow-x: hidden;</code> to parent element if
+        you want to position the ribbon of the right side of the page. If you set the ribbon to be at the
+        bottom of a page it's automatically set to "sticky" a.k.a <code>position: fixed</code>.
       </p>
       <p>
-        Once I tweaked the colors enough to look passable, the glaring
-        inconsistency was the font.  The GitHub images don't use one of the 9 or
-        so web-safe fonts, which almost made me stop trying.  But looking at the
-        <a href="http://github.com/blog/273-github-ribbons">blog post</a> again,
-        they mention that the font is
-        <a href="http://www.fontriver.com/font/collegiate/">Collegiate</a>,
-        which is freely available on
-        <a href="http://www.fontriver.com/">fontriver.com</a>.  Using the new
-        <a href="https://developer.mozilla.org/en/CSS/@font-face"><code>@font-face</code></a>,
-        I can make the ribbon font match the image exactly:
-      </p>
-      <pre><code>
-      @font-face {
-        font-family: Collegiate;
-        src: url("Collegiate.ttf");
-      }
-      .ribbon {
-        font-family: Collegiate, sans-serif;
-      }
-      </code></pre>
-      <p>
-        I wasn't excited about <code>@font-face</code> until I found a real
-        usage like this.
+        Files you need in order to use this ribbon on your own site:
+        <pre><code>
+          ribbon.min.css OR ribbon.css
+          Collegiate.eot
+          Collegiate.svg
+          Collegiate.ttf
+          Collegiate.woff
+        </code></pre>
       </p>
       <p>
-        The blur surrounding the ribbon is achieved through
-        <a href="https://developer.mozilla.org/en/CSS/-moz-box-shadow"><code>-moz-box-shadow</code></a>.
-        <code>-moz-box-shadow: 0 0 13px #888;</code> creates a dark shadow with
-        no vertical or horizontal offset and a blur radius of <code>13px</code>.
-      <p>
-      <p>
-        The last goody is
-        <a href="http://webkit.org/blog/175/introducing-css-gradients/">-webkit-gradient</a>,
-        which is unfortunately only available in Webkit at this point.  I hope
-        it finds its way into Firefox soon.  The ribbon images have a small
-        background gradient which I recreate for the orange ribbon with:
-      </p>
-      <pre><code>
-      .orange.ribbon {
-        background: -webkit-gradient(linear, left bottom, left top,
-                                     from(#dc7202), to(#ee7906));
-      }
-      </code></pre>
-      <p>
-        Of course, this isn't perfect.  It's certainly easier to embed an image
-        that works in any browser,  but I think there's some compelling benefits
-        to this method.  For a web developer like me, it's much easier to
-        customize the text and colors in CSS than it is to find someone who
-        knows Photoshop.
-      </p>
-      <p>
-        I think that's the powerful idea in the next generation of browsers.
-        They're taking a lot of the issues where we had to rely on tools outside
-        the browser, like image editors and Flash, and moving them into the web
-        space.  It's a good time to be a web developer.
-      </p>
-      <p>
-        Note: this is broken is Webkit because the rotation isn't being applied
-        according to the
-        <a href="http://webkit.org/blog/130/css-transforms/">spec</a>.  The
-        rotation is pivoting on the top left corner instead of the center, as
-        seen by checking/unchecking the <code>-webkit-transform</code> property
-        in the Inspector.  I should file a bug.
+        <b>Compability:</b><br />
+        Internet Explorer 6: Not working at all, but hey, what did you expect?<br />
+        Internet Explorer 7/8: Does not look great, but usable<br />
+        Internet Explorer 9: Works with the exception of not having text shadow and hover animation.<br />
+        Firefox 3.0: Does not look great, but usable<br />
+        Firefox 4.0: When hovering the font is a bit garbled. <br />
+        Safari 5.0: Working perfectly.<br />
+        Chrome 9.0+: Working perfectly.<br />
+        Opera 11: Working perfectly<br />
       </p>
     </div>
+  
   </body>
 </html>

@@ -1,0 +1,141 @@
+@import "base.less";
+
+// Shadow constants
+@shadowRadius: 13px;
+@shadow: #888;
+
+// Color constants
+@white: #fff;
+@red: #a00;
+@green: #007200;
+@darkBlue: #121621;
+@orange: #ee7906;
+@gray: #6d6d6d;
+
+// Rotation
+@angle: 45deg;
+
+
+@font-face {
+    font-family: Collegiate;
+    src: url('Collegiate.eot');
+    src: url('Collegiate.eot?#iefix') format('eot'),
+         url('Collegiate.woff') format('woff'),
+         url('Collegiate.ttf') format('truetype'),
+         url('Collegiate.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ribbon-border(@color) {
+  border-top: 1px solid @color;
+  border-bottom: 1px solid @color;
+}
+
+.ribbon,
+.ribbon:hover {
+  text-decoration: none;
+}
+
+.ribbon {
+  .transition(background);
+  .transition(color);
+
+  font-family: Collegiate, sans-serif;
+  letter-spacing: -.1px;
+  .opacity(0.825);
+
+  padding: 0.3em 0;
+  
+  display: block;
+  
+  position: absolute;
+
+  /* Defaults friendly for white pages. */
+  
+  .box-shadow(0px, 0px, @shadowRadius, @shadow);
+
+  color: #fff;
+  
+  z-index: 1000;
+  
+  .text {
+    padding: 0.25em 3em;
+  
+    .user-select(none);
+  }
+  
+  &:hover {
+    .opacity(0.95);
+  }
+  
+  &.fixed {
+    position: fixed !important;
+  }
+  
+  &.left {
+    left: -2.5em;
+  }
+  
+  &.right {
+    right: -2.5em;
+  }
+  
+  &.top {
+    top: 2.5em;
+    
+    &.left { .transform(rotate(@angle * -1)); }
+    &.right { .transform(rotate(@angle)); }
+  }
+  
+  &.bottom {
+    bottom: 2.5em;
+    position: fixed !important;
+    
+    &.left { .transform(rotate(@angle)); }
+    &.right { .transform(rotate(@angle * -1)); }
+  }
+  
+  &.white {
+    color: #111;
+  
+    .linearVertGradient(@white, darken(@white, 5%));
+  
+    .box-shadow(0px, 0px, @shadowRadius, lighten(@shadow, 5%));
+    text-shadow: 0 0 .5em darken(@shadow, 50%);
+    
+    .text { .ribbon-border(darken(@white, 20%)); }
+  }
+  
+  &.red {
+    .linearVertGradient(@red, darken(@red, 5%));
+    
+    .text { .ribbon-border(lighten(@red, 7.5%) + #006060); }
+  }
+  
+  &.green {
+    .linearVertGradient(@green, darken(@green, 5%));
+    
+    .text { .ribbon-border(#6bac6b); }
+  }
+  
+  &.darkblue {
+    .linearVertGradient(@darkBlue, darken(@darkBlue, 5%));
+    color: #ecedee;
+    
+    .text { .ribbon-border(#53565e); }
+  }
+  
+  &.orange {
+    .linearVertGradient(@orange, darken(@orange, 5%));
+    
+    .text { .ribbon-border(darken(@orange, 2.5%) + #006060); }
+  }
+  
+  &.gray {
+    .linearVertGradient(@gray, darken(@gray, 5%));
+    
+    .text { .ribbon-border(lighten(@gray, 25%)); }
+  }
+}
+

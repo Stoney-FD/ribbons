@@ -1,0 +1,111 @@
+@import "base.less";
+
+@white: #fff;
+@red: #a00;
+@green: #007200;
+@darkBlue: #121621;
+@orange: #ee7906;
+@gray: #6d6d6d;
+@black: #000;
+
+
+body {
+  .transition;
+
+  font-size: 100%;
+  
+  overflow-x: hidden;
+  
+  padding: 12px;
+  
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body.day
+{
+  background-color: @white;
+  color: #444;
+  
+  text-shadow: 0px 0px 4px #888;
+}
+
+body.night
+{
+  background-color: @black;
+  color: #eee;
+  
+  text-shadow: 0px 0px 4px #aaa;
+}
+
+h1 { font-size: 2.5em; }
+h4 { font-size: 1.1em; }
+
+.options {
+  font-size: 90%;
+  width: 300px;
+  float: left;
+  padding-left: 24px;
+}
+
+.options .title
+{
+  font-size: 100%;
+  font-weight: bold;
+}
+
+.prose {
+  margin-left: 324px;
+  width: 35em;
+  font-size: 95%;
+}
+
+.cbutton
+{
+  display: block;
+  cursor: pointer;
+  
+  width: 128px;
+  height: 32px;
+  
+  border: 1px solid #666;
+  
+  .border-radius(8px);
+  .box-shadow-inset(0px, 0px, 8px, #888);
+
+  margin-bottom: 4px;
+}
+
+.white.cbutton
+{
+  background: @white;
+}
+
+.red.cbutton
+{
+  background: @red;
+}
+
+.green.cbutton
+{
+  background: @green;
+}
+
+.darkblue.cbutton
+{
+  background: @darkBlue;
+}
+
+.orange.cbutton
+{
+  background: @orange;
+}
+
+.gray.cbutton
+{
+  background: @gray;
+}
+
+.black.cbutton
+{
+  background: @black;
+}
